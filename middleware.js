@@ -16,7 +16,7 @@ app.use('/add-product',(req,res,next)=>{
         console.log(res.body)
         res.redirect('/')
     })
-   // next();//this allows the request to continue to the next middleware
+   
 })
 app.use('/',(req,res,next)=>{
    // console.log("in another  middleware")
