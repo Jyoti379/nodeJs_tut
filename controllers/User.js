@@ -3,13 +3,10 @@ const User=require('../models/user')
 exports.postUser = async(req,res,next)=>{
   try{
 
-      /*if(!req.body.number){
+      if(!req.body.number){
           throw new Error('Phone Number is mandatory');
       }
-      if(!req.body.email){
-          throw new Error('email is mandatory');
-      }*/
-     
+      
   const name=req.body.name;
   const email=req.body.email;
   const phonenumber=req.body.number;
