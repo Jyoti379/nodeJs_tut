@@ -1,26 +1,24 @@
-const path = require('path');
 const Sequelize =require('sequelize');
-const sequelize=require('../util/database')
 
-const User= sequelize.define('user',{
+const sequelize=require('../util/database');
+const User = sequelize.define('user',{
     id:{
-      type:Sequelize.INTEGER,
-      autoIncrement:true,
-      allowNull:false,
-      primaryKey:true
+        type:Sequelize.INTEGER,
+        autoIncrement:true,
+        allowNull:false,
+        primaryKey:true
     },
-    name:{type:Sequelize.STRING,allowNull:false},
+    name:Sequelize.STRING,
     email:{
-      type:Sequelize.STRING,
-      
-      unique:true
+        type:Sequelize.STRING,
+        unique:true
     },
-    phoneNumber:{
-      type:Sequelize.INTEGER,
-     
-      unique:true
+    phonenumber:{
+        type:Sequelize.STRING,
+        unique:true
     }
+
     
-        
-  });
-  module.exports = User;
+
+});
+module.exports=User;
