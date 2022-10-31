@@ -2,7 +2,7 @@ const User= require('../models/User');
 
 exports.addUser= async(req,res,next)=>{
     try{
-        if(!req.body.number){
+        if(!req.body.phonenumber){
             throw new Error('Phone Number is mandatory');
         }
     const name=req.body.name;
@@ -41,19 +41,4 @@ exports.getUser= async(req,res,next)=>{
         res.status(500).json({error:err})
     }
    }
-    exports.editUser = async(req,res,next)=>{
-        try{
-            const uId=req.params.id;
-            const updatedName=req.body.name;
-            const updatedEmail=req.body.email;
-            const updatedNumber=req.body.phonenumber;
-            const updatedUser= await findByPk(uId);
-            users.name=updatedName;
-            users.email=updatedEmail;
-            user.phonenumber=updatedNumber
-            await User.save();
-        }catch(err){
-            console.log('edit user not working');
-            res.status(500).json({error:'edit user not working '})
-        }
-    }
+  
