@@ -7,4 +7,4 @@ router.get('/get-users',userController.getUser);
 router.delete('/delete-user',userController.deleteUser);
 
 
-module.exports=router;
+module.exports = router;

@@ -22,11 +22,13 @@ form {
 .centered {
   text-align: center;
 }
-.image{
-  height:20rem;
+
+.image {
+  height: 20rem;
 }
-.image img{
-  height:100%;
+
+.image img {
+  height: 100%;
 }
 
 .main-header {

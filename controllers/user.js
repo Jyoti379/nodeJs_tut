@@ -1,6 +1,6 @@
 const User= require('../models/User');
 
-exports.addUser= async(req,res,next)=>{
+exports.addUser = async(req,res,next)=>{
     try{
         if(!req.body.phonenumber){
             throw new Error('Phone Number is mandatory');
@@ -17,9 +17,9 @@ exports.addUser= async(req,res,next)=>{
     }
 }
 
-exports.getUser= async(req,res,next)=>{
+exports.getUser = async(req,res,next)=>{
     try{
-        const users= await User.findAll();
+        const users = await User.findAll();
         res.status(200).json({allUsers:users})
     }catch(err){
         console.log('get user is not working',JSON.stringify(err));
@@ -27,7 +27,7 @@ exports.getUser= async(req,res,next)=>{
          }
   }
 
-  exports.deleteUser= async(req,res,next)=>{
+  exports.deleteUser = async(req,res,next)=>{
     try{
         if(req.params.id=='undefined'){
             console.log('id is missing');
