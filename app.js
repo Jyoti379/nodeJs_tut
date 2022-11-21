@@ -2,6 +2,7 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+var cors=require('cors');
 
 const errorController = require('./controllers/error');
 const sequelize = require('./util/database');
@@ -9,6 +10,7 @@ const Product = require('./models/product');
 const User = require('./models/user');
 
 const app = express();
+app.use(cors());
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -18,7 +20,7 @@ const shopRoutes = require('./routes/shop');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {

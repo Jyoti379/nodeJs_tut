@@ -2,17 +2,38 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 exports.getProducts = (req, res, next) => {
-  Product.findAll()
-    .then(products => {
-      res.render('shop/product-list', {
+  const page= +req.query.page|| 1;
+  let totalItems;
+  let Items_Per_page = 2;
+
+  Product.count().then((total)=>{
+    totalItems=total;
+   return Product.findAll({
+    offset:(page-1)*Items_Per_page,
+    limit:Items_Per_page
+   })
+  })
+ .then(products => {
+      console.log(products)
+      res.json({products:products,
+       
+        currentPage:page,
+        hasNextPage:Items_Per_page * page < totalItems,
+        nextPage:page+1,
+        hasPreviousPage:page>1,
+        previousPage:page-1,
+        lastPage:Math.ceil(totalItems/Items_Per_page),
+
+      })
+     /* res.render('shop/product-list', {
         prods: products,
         pageTitle: 'All Products',
         path: '/products'
-      });
+      });*/
     })
     .catch(err => {
       console.log(err);
-    });
+    })
 };
 
 exports.getProduct = (req, res, next) => {
@@ -56,13 +77,9 @@ exports.getCart = (req, res, next) => {
   req.user.getCart()
   .then(cart=>{
     return cart.getProducts().then(products=>{
-      res.render('shop/cart', {
-        path: '/cart',
-        pageTitle: 'Your Cart',
-        products: products
-      });
+     res.status(200).json({success:true,products:products});
     }).catch(err=>{
-      console.log(err);
+      res.status(500).json({success:false,message:err});
     })
   }).catch(err=>{
     console.log(err)
@@ -116,9 +133,9 @@ exports.postCart = (req, res, next) => {
       });
     })
     .then(() => {
-      res.redirect('/cart');
+      res.status(200).json({success:true,message:"Successfully added the product"})
     })
-    .catch(err => console.log(err));
+    .catch(err =>res.status(500).json({success:false,message:"Error occured"}));
 };
 
 
