@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
+const ProductOrder=require('../models/product-order')
 
 exports.getProducts = (req, res, next) => {
   const page= +req.query.page|| 1;
@@ -155,6 +156,22 @@ exports.postCartDeleteProduct = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+exports.postOrder =(req,res,next)=>{
+ req.user 
+ .getCart()
+    .then(cart => {
+      return cart.getProducts();
+    })
+    .then(products => {
+      res.status(200).json({success:true,message:"Successfully Ordered",products:products});
+     
+    })
+    .catch(err=>{
+    res.status(500).json({success:false,message:err})
+    })
+
+}
 
 exports.getOrders = (req, res, next) => {
   res.render('shop/orders', {
