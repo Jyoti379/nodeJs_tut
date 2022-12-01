@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
-const ProductOrder=require('../models/product-order')
+const Order=require('../models/order');
+const OrderItem = require('../models/orderItems');
 
 exports.getProducts = (req, res, next) => {
   const page= +req.query.page|| 1;
@@ -145,6 +146,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
   req.user
     .getCart()
     .then(cart => {
+
       return cart.getProducts({ where: { id: prodId } });
     })
     .then(products => {
@@ -158,31 +160,55 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.postOrder =(req,res,next)=>{
- req.user 
- .getCart()
-    .then(cart => {
-      return cart.getProducts();
+  let fetchedCart;
+  req.user 
+  .getCart()
+     .then(cart => {
+       fetchedCart=cart;
+       return cart.getProducts();
+     })
+     .then(products=>{
+      //console.log(products)
+      return req.user
+      .createOrder()
+     .then(orders=>{
+        return orders.addProducts(
+          products.map(product=>{
+            product.orderItems = {quantity:product.cartItem.quantity}
+            return product
+          })
+        )
+      })
+     }).catch(err=>{
+       console.log(err)
+     })
+     .then(result => {
+      return fetchedCart.setProducts(null);
     })
-    .then(products => {
-      res.status(200).json({success:true,message:"Successfully Ordered",products:products});
      
-    })
-    .catch(err=>{
-    res.status(500).json({success:false,message:err})
-    })
-
-}
+   .then(() => {
+       res.status(200).json({success:true,message:"Successfully Ordered"});
+      
+     })
+     
+   
+    
+     .catch(err=>{
+     res.status(500).json({success:false,message:err})
+     })
+ 
+ }
 
 exports.getOrders = (req, res, next) => {
-  res.render('shop/orders', {
-    path: '/orders',
-    pageTitle: 'Your Orders'
-  });
-};
+  
+  req.user.getOrders({include: ['products']})
+  .then(Order=>{
+   res.status(200).json({success:true,order:Order})
+  }).catch(err=>{
+    console.log(err)
+  })
+    
+  
+}
 
-exports.getCheckout = (req, res, next) => {
-  res.render('shop/checkout', {
-    path: '/checkout',
-    pageTitle: 'Checkout'
-  });
-};
+

@@ -19,8 +19,8 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
-const ProductOrder= require('./models/product-order')
-const productOrderItem=require('./models/product-orderItems')
+const Order= require('./models/order')
+const OrderItem=require('./models/orderItems')
 
 
 app.use(bodyParser.json());
@@ -47,13 +47,14 @@ Cart.belongsTo(User);
 Cart.belongsToMany(Product,{through:CartItem});
 Product.belongsToMany(Cart,{through:CartItem});
  
-ProductOrder.belongsTo(User)
-User.hasMany(ProductOrder)
-ProductOrder.belongsToMany(Product,{through:productOrderItem})
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product,{through:OrderItem});
+Product.belongsToMany(Order,{through:OrderItem});
 
 
 sequelize
- // .sync({ force: true })
+//.sync({ force: true })
  .sync()
   .then(result => {
     return User.findByPk(1);
@@ -70,9 +71,10 @@ sequelize
     
   })
   
-  .then(cart=>{
+  .then(cart => {
     app.listen(3000);
   })
-  .catch(err => {
+ 
+   .catch(err => {
     console.log(err);
   });
