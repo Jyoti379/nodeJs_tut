@@ -10,6 +10,9 @@ const Product = require('./models/product');
 const User = require('./models/user');
 
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config();
+
 app.use(cors());
 
 app.set('view engine', 'ejs');
