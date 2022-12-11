@@ -27,7 +27,11 @@ const OrderItem=require('./models/orderItems')
 
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use((req,res)=>{
+  console.log('url',req.url);
+  res.sendFile(path.join(__dirname,`public1/${req.url}`))
+})
 
 app.use((req, res, next) => {
   User.findByPk(1)

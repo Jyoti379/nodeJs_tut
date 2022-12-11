@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&family=PT+Serif&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 1px;
+    padding: 0;
+}
+body{
+    margin: 0;
+    font-family:"PTSerif";
+}
+
+header{
+    text-align:center;
+    margin: 0;
+    padding: 0px;
+    padding-bottom: 30px;
+    background: #777;
+    color: white;
+    
+}
+.nav{
+    background-color: black;
+    overflow: hidden;
+    list-style-type: none;
+    font-weight: 200;
+    display :flex;
+    justify-content: center;
+    border-bottom: 0.1rem solid white;
+    position: fixed;
+    top: 0%;
+    width: 100%;
+}
+header ul a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav li a{
+    cursor: pointer;
+    float:left;
+    color: white;
+    text-align:justify;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+}
+.cart-holder{
+    margin-top: 12px;
+    border: 2px solid #44c7f3;
+    border-radius: 7px;
+    padding: 4px 10px;
+    position: absolute;
+    right: 2%;
+}
+.cart-number{
+    position: absolute;
+    color: #44c7f3;
+    font-size: 20px;
+    top: -10px;
+    right: -15px;
+}
+header h1{
+    padding: 50px;
+    font-size: 100px;
+}
+section{
+    display: block;
+}
+.container{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px;
+}
+section h2{
+    font-family: "Metal Mania";
+    text-align: center;
+    padding: 20px;
+    font-size: 30px
+}
+#music-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+#music-content div {
+    margin: 30px;
+}
+#music-content div h3 {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+.image-container {
+    height: 250px;
+    width: 250px;
+    overflow: hidden;
+    
+}
+.image-block{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    transition: transform 0.5s;
+    
+}
+.image-block:hover{
+    transform:scale(2);
+}
+.product-details{
+    display: flex;
+    margin: 6px;
+    align-items:center;
+    justify-content: space-between;
+}
+.item-button {
+
+   background-color: #44c7f3;
+   color: white;
+   border: none;
+   border-radius: 1px;
+   font-size: 15px;
+   font-weight: bold;
+   padding: 5px;
+   cursor: pointer;
+   margin-left: 105px;
+   
+}
+#merch-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+#merch-content div {
+    margin: 30px;
+}
+#merch-content div h3 {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+#cart {
+    margin: 5px 0px;
+   
+    display: none;
+    position:fixed ;
+    top: 38px;
+    height: 95%;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(177, 103, 103);
+    min-height: 50vh;
+}
+#cart h2{
+    margin:-21px  0;
+}
+.cancel {
+    position: absolute;
+    cursor: pointer;
+    color: rgb(121, 117, 117);
+    top: 0;
+    right: 0;
+    margin: 20px;
+    background: none;
+    font-size: 16px;
+    font-weight: 700;
+    border: 1px solid rgb(121, 117, 117);
+    border-radius: 7px;
+    padding: 5px;
+}
+
+.cart-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.cart-column {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-right: 1.5em;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+.cart-row {
+    font-size: 18px;
+    display: flex;
+}
+.cart-items {
+    width: 45%;
+    display:inline-block;
+}
+.cart-price {
+    width: 20%;
+}
+.cart-quantity {
+    width: 35%;
+}
+.cart-total {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 1.2rem;
+    margin: 20px;
+}
+.cart-total .total-title {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+.btn-purchase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 5px;
+    background: #44c7f3;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8%;
+    padding: 12px;
+    cursor: pointer;
+}
+.btn-purchase:hover{
+    background-color:#1586a8;
+}
+#cart-btn-bottom {
+    
+    
+    display: flex;
+    padding: 15px;
+    background-color: #777;
+    border: none;
+    border-radius: 7px;
+    margin: auto;
+    cursor: pointer;
+}
+.cart-link{
+    
+    color: #56CCF2;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+  
+
+}
+.cart-item-image{
+    width:80px;
+    border-radius:8%;
+    margin-right:20px;
+}
+.cart-price{
+    width:20%;
+}
+.cart-quantity{
+    width:35%;
+}
+.cart-quantity input{
+    width:40px;
+    height:30px;
+    border:1px solid rgb(0, 204, 255) ;
+    border-radius:8%;
+    outline:none;
+    text-align:center;
+    margin-right:20px;
+}
+.cart-quantity button{
+    color:white;
+    font-weight: bold;
+    background: rgb(231, 76, 76);
+    cursor: pointer;
+    border:none;
+    border-radius:8%;
+    height:30px;
+    outline:none;
+    padding: 0px 7px;
+}
+.cart-quantity button:hover{
+    background: rgb(218, 37, 37);;
+}
+/*toggle-notification*/
+#container{
+    position: fixed;
+    overflow: scroll;
+     bottom: 50px;
+    right: 10px;
+}
+.toast{
+    background-color: #44c7f3;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding:2rem;
+}
+ .pagination{
+    margin-top:2rem;
+    text-align: center;
+ }
+ .pagination button{
+    margin: 12px;
+    padding: 10px;
+    border:1px solid #44c7f3;
+    font-weight: bold;
+    color: #777;
+    border-radius: 5px;
+ }
+ .pagination button:hover{
+    color:white;
+    background-color: #44c7f3;
+ }
+
+
+ footer{
+   
+    display: flex;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #44c7f3;
+    color: white;
+
+}
+footer .footer-title {
+    text-align: center;
+    color: white;
+    width: 50%;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0 auto;
+}
+footer .footer-icons {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.footer-icons ul {
+    list-style-type: none;
+    display: flex;
+    
+}
+.footer-icons img {
+    
+   padding: 15px;
+    width: 60px;
+}
+
