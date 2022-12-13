@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="expenseForm.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3> Add Your Expenses </h3>
+    <div class="form">
+    <form onsubmit="saveExpenses(event)" class="form-class">
+        <div  class="form-control">
+        <label> choose Expenseamount</label>
+        <input id='expense' type="number" name="Expenseamount"  />
+    </div>
+        <div  class="form-control">
+        <label> choose description</label>
+        <input id='description' type="text" name="description"  />
+    </div>
+     <div  class="form-control">
+        <label>choose catagory</label>
+        <select id="catagory" name="catagory">
+            <option value="Fuel">Fuel</option>
+            <option value="Bills">Bills</option>
+            <option value="Movies">Movies</option>
+            <option value="Shopping">Shopping</option>
+        </select>
+    </div>
+        
+        <button type="submit"> Add Expense </button>
+    </form>
+</div>
+    <ul id='listOfUsers'></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script>
+        function saveExpenses(event) {
+            event.preventDefault();
+            const Expenseamount = event.target.Expenseamount.value;
+            const description = event.target.description.value;
+            const catagory = event.target.catagory.value;
+            const obj = {
+                Expenseamount,
+                description,
+                catagory
+            }
+
+            axios.post("http://localhost:3000/expense/add-expense", obj)
+                .then((response) => {
+
+                    showNewUserOnScreen(response.data.expenseDetails)
+                    console.log(response)
+                })
+
+                .catch(err => console.log(err));
+
+        }
+        window.addEventListener("DOMContentLoaded", () => {
+         axios.get("http://localhost:3000/expense/get-expenses")
+                .then(response => {
+
+                    console.log(response);
+                    for (var i = 0; i < response.data.expenseDetails.length; i++) {
+                        showNewUserOnScreen(response.data.expenseDetails[i])
+                    }
+                })
+                .catch(err => console.log(err))
+
+        })
+
+        function showNewUserOnScreen(user) {
+            document.getElementById('expense').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('catagory').value = '';
+
+
+            const parentNode = document.getElementById('listOfUsers');
+            const childHTML = `<li id=${user.id}> ${user.Expenseamount} : ${user.description}:${user.catagory}
+                    <button onclick=deleteExpense('${user.id}')> Delete Expense </button>
+                     <button onclick=editUser('${user.Expenseamount}','${user.description}','${user.catagory}','${user.id}')> Edit Expense </button>
+                                     </li>`
+
+            parentNode.innerHTML = parentNode.innerHTML + childHTML;
+        }
+
+
+
+        function editUser(Expenseamount, description, catagory,userId) {
+            
+            document.getElementById('expense').value = Expenseamount;
+            document.getElementById('description').value = description;
+            document.getElementById('catagory').value = catagory;
+             deleteExpense(userId);
+            
+
+            
+          
+ }
+ function deleteExpense(userId){
+
+    axios.delete(`http://localhost:3000/expense/delete-expense/${userId}`)
+               .then((response)=>{
+                removeUserFromScreen(userId);
+               }).catch(err=>console.log(err))
+                }
+
+            function removeUserFromScreen(userId){
+                const parentNode = document.getElementById('listOfUsers');
+                const childNodeToBeDeleted = document.getElementById(userId);
+                if(childNodeToBeDeleted) {
+                    parentNode.removeChild(childNodeToBeDeleted)
+                }
+            }
+
+ 
+
+    </script>
+</body>
+
+</html>
